@@ -49,13 +49,13 @@ class RNN(nn.Module):
         labels = labels.view(-1)  
 
         #mask out 'PAD' tokens
-        mask = (labels >= 0).float()
+        mask = (labels >= 0).float() # returns a tensor of booleans
 
         #the number of tokens is the sum of elements in mask
         num_tokens = int(torch.sum(mask))
 
         #pick the values corresponding to labels and multiply by mask
-        outputs = outputs[range(outputs.shape[0]), labels]*mask
+        outputs = outputs[range(outputs.shape[0]), labels] * mask
 
         #cross entropy loss for all non 'PAD' tokens
         return -torch.sum(outputs)/num_tokens
