@@ -17,7 +17,12 @@ def arg_inputs():
                         "--age", 
                         type = int,
                         required = True,
-                        help = "The age of the person") 
+                        help = "The age of the person")
+    my_parser.add_argument("-t",
+                        "--hometown", 
+                        type = str,
+                        required = True,
+                        help = "The home town of the person")
 
     # the list of arguments given
     args = my_parser.parse_args() # a list that contains all the arguments given from the command line.and
@@ -29,8 +34,8 @@ def arg_inputs():
 def hello(name:str) -> str:
     print(f"Hello, my name is {name}! Here's my info:")
 
-def person_info(name:str, age:int) -> pd.DataFrame:
-    df = pd.DataFrame([[name, age]], columns=["name", "age"])
+def person_info(name:str, age:int, hometown: str) -> pd.DataFrame:
+    df = pd.DataFrame([[name, age, hometown]], columns=["name", "age", "hometown"])
     print(df)
 
 def main():
@@ -38,7 +43,7 @@ def main():
     arguments = arg_inputs()
     # run the hello function
     hello(arguments.name)
-    person_info(arguments.name, arguments.age)
+    person_info(arguments.name, arguments.age, arguments.hometown)
 
 # the point of this is that this file contains pieces of code that can be both imported to other files, but can also be run from the command line. Here, we are just defining that if this piece of code is run from the command line, what we want to do is run the main() function. If it's imported from a notebook, it'll try to run the entire script, unless we add this piece of code. Then, it'll be able to just import the functions.
 if __name__ == "__main__":
